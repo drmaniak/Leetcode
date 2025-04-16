@@ -21,20 +21,20 @@ def remove_all_but_last_duplicates(nums: list[int]) -> int:
 
     """
 
+    n = len(nums)
+
     # Edge cases where len(nums) in [0, 1]
-    if len(nums) <= 1:
-        return len(nums)
+    if n <= 1:
+        return n
 
     # 2 pointer method
-    n = len(nums)
     left = 0
     for right in range(n):
-        # write conditions
+        # Write condition
         if (
             right == n - 1 or nums[right] != nums[right + 1]
-        ):  # Here, order of conditions matters. It would fail if right == n - 1 came second
+        ):  # Here the order of conditions matters.
             nums[left] = nums[right]
-
             left += 1
 
     return left

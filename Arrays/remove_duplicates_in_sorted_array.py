@@ -25,7 +25,7 @@ def remove_all_duplicates(nums: list[int]) -> int:
     n = len(nums)
     # Edge cases when len(nums) <= 1
     if n <= 1:
-        return len(nums)
+        return n
 
     # 2 pointer method
     # Initialize 2 pointers, one to scan through the array, one to keep track of the idx to write
@@ -33,14 +33,13 @@ def remove_all_duplicates(nums: list[int]) -> int:
     # In this problem, we never touch the first element, so we can start from idx=1
     # The scanner pointer compares against the previous element, if it's not a duplicate, it writes at the idx of the second pointer
     # The second pointer is incremented
-
     left = 1
     for right in range(1, n):
         curr = nums[right]
         prev = nums[right - 1]
-
+        # write condition
         if curr != prev:
-            nums[left] = curr
+            nums[left] = nums[right]
             left += 1
 
     return left
