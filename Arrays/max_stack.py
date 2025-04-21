@@ -1,20 +1,27 @@
 class MaxStack:
     def __init__(self):
         self.stack = []
-        self.max_stack = []
+        self.max_stack: list[tuple[int, int]] = []
 
     def push(self, val: int) -> None:
+        # Check if stack is empty or not
+        if self.stack:
+            # Compare incoming value against stack_max
+            stack_max = self.max_stack[-1][0]
+            max_val = val if val >= stack_max else None
+            if max_val:
+                self.max_stack.append((val, len(self.stack)))
+        else:
+            self.max_stack.append((val, 0))
+
         self.stack.append(val)
 
-        # handle appending to max_stack
-        if not self.max_stack:
-            self.max_stack.append((val, 0))
-        else:
-            if val >= self.max_stack[-1][0]:
-                self.max_stack.append((val, len(self.stack) - 1))
+        # I need to add to the top of the stack
 
     def pop(self) -> int:
-        if self.max_stack[-1][0] == self.stack[-1]:
+        # If the last element is the same as the max
+        if self.max_stack[-1][1] == len(self.stack) - 1:
+            # Remove the topmost max element
             self.max_stack.pop()
 
         return self.stack.pop()
@@ -26,12 +33,12 @@ class MaxStack:
         return self.max_stack[-1][0]
 
     def popMax(self) -> int:
-        maxval, maxidx = self.max_stack.pop()
-        self.stack.pop(maxidx)
-        return maxval
+        max_val, max_idx = self.max_stack.pop()
+
+        return self.stack.pop(max_idx)
 
     def __str__(self) -> str:
-        return f"Stack: {self.stack}\nMax Stack: {self.max_stack}"
+        return f"Stack: {self.stack}\n\nMax stack: {self.max_stack}"
 
 
 def test_max_stack():
