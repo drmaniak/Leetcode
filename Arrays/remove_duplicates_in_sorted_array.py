@@ -21,25 +21,18 @@ def remove_all_duplicates(nums: list[int]) -> int:
     You must do this in-place with O(1) extra memory.
     """
 
-    # Length of array
     n = len(nums)
-    # Edge cases when len(nums) <= 1
     if n <= 1:
         return n
 
-    # 2 pointer method
-    # Initialize 2 pointers, one to scan through the array, one to keep track of the idx to write
-    # These pointers can be initialized based on where we need to start scanning from
-    # In this problem, we never touch the first element, so we can start from idx=1
-    # The scanner pointer compares against the previous element, if it's not a duplicate, it writes at the idx of the second pointer
-    # The second pointer is incremented
+    # 2 pointer method where left is write & right is read
     left = 1
-    for right in range(1, n):
+    for right in range(1, len(nums)):
         curr = nums[right]
         prev = nums[right - 1]
-        # write condition
+
         if curr != prev:
-            nums[left] = nums[right]
+            nums[left] = curr
             left += 1
 
     return left
