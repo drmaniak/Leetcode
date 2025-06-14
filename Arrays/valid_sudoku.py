@@ -18,6 +18,8 @@
 #     board[i].length == 9
 #     board[i][j] is a digit 1-9 or '.'.
 
+from collections import defaultdict
+
 
 def is_valid_sudoku(board: list[list[str]]) -> bool:
     """
@@ -81,6 +83,30 @@ def is_valid_sudoku_optimized(board: list[list[str]]) -> bool:
     Time Complexity: O(1) since the board size is fixed at 9x9
     Space Complexity: O(1) since the sets used are of fixed size
     """
+
+    rows = defaultdict(set)
+    cols = defaultdict(set)
+    grids = defaultdict(set)  # This is for the 9 3x3 grids indexed (r//3, c//3)
+
+    for r in range(9):
+        for c in range(9):
+            # Get val
+            val = board[r][c]
+
+            # Get grid_r and grid_c
+            grid_r, grid_c = r // 3, c // 3
+            gridx = (grid_r, grid_c)
+
+            if val == ".":
+                continue
+
+            # checks
+            if (val in rows[r]) or (val in cols[c]) or (val in grids[gridx]):
+                return False
+            else:
+                rows[r].add(val)
+                cols[c].add(val)
+                grids[gridx].add(val)
 
     return True
 
@@ -189,4 +215,8 @@ def test_is_valid_sudoku(optimized=False):
 
 # 🧪 Run tests
 if __name__ == "__main__":
+    print(f"NORMAL METHOD")
     test_is_valid_sudoku()
+    print("#" * 10)
+    print(f"NORMAL METHOD")
+    test_is_valid_sudoku(optimized=True)
