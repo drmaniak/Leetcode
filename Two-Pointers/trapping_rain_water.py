@@ -11,6 +11,40 @@
 #     0 <= height[i] <= 1000
 
 
+# def trap(height: list[int]) -> int:
+#     """
+#     Calculate the amount of water that can be trapped between the bars.
+#
+#     Args:
+#         height: List of non-negative integers representing bar heights
+#
+#     Returns:
+#         The total amount of water trapped
+#     """
+#     # Your solution here
+#
+#     if len(height) <= 2:
+#         return 0
+#
+#     n = len(height)
+#
+#     prefix = [0] * n
+#     for i in range(1, n):
+#         prefix[i] = max(prefix[i - 1], height[i - 1])
+#
+#     suffix = [0] * n
+#     for i in range(n - 2, -1, -1):
+#         suffix[i] = max(suffix[i + 1], height[i + 1])
+#
+#     total_height = 0
+#
+#     for i in range(n):
+#         val = max(min(prefix[i], suffix[i]) - height[i], 0)
+#         total_height += val
+#
+#     return total_height
+
+
 def trap(height: list[int]) -> int:
     """
     Calculate the amount of water that can be trapped between the bars.
@@ -28,21 +62,24 @@ def trap(height: list[int]) -> int:
 
     n = len(height)
 
-    prefix = [0] * n
-    for i in range(1, n):
-        prefix[i] = max(prefix[i - 1], height[i - 1])
+    lmax, rmax = 0, 0
+    total_water = 0
 
-    suffix = [0] * n
-    for i in range(n - 2, -1, -1):
-        suffix[i] = max(suffix[i + 1], height[i + 1])
+    L, R = 0, n - 1
 
-    total_height = 0
+    while L < R:
+        hL, hR = height[L], height[R]
 
-    for i in range(n):
-        val = max(min(prefix[i], suffix[i]) - height[i], 0)
-        total_height += val
+        if hL < hR:
+            total_water += max(0, lmax - hL)
+            lmax = max(lmax, hL)
+            L += 1
+        else:
+            total_water += max(0, rmax - hR)
+            rmax = max(rmax, hR)
+            R -= 1
 
-    return total_height
+    return total_water
 
 
 # ✅ Thorough test suite
