@@ -84,29 +84,30 @@ def is_valid_sudoku_optimized(board: list[list[str]]) -> bool:
     Space Complexity: O(1) since the sets used are of fixed size
     """
 
-    rows = defaultdict(set)
-    cols = defaultdict(set)
-    grids = defaultdict(set)  # This is for the 9 3x3 grids indexed (r//3, c//3)
+    rowcheck = defaultdict(set)
+    colcheck = defaultdict(set)
+    gridcheck = defaultdict(set)  # (r//3, c//3)
 
     for r in range(9):
         for c in range(9):
-            # Get val
             val = board[r][c]
 
-            # Get grid_r and grid_c
-            grid_r, grid_c = r // 3, c // 3
-            gridx = (grid_r, grid_c)
+            gr = r // 3
+            gc = c // 3
 
             if val == ".":
                 continue
 
-            # checks
-            if (val in rows[r]) or (val in cols[c]) or (val in grids[gridx]):
+            if (
+                (val in rowcheck[r])
+                or (val in colcheck[c])
+                or (val in gridcheck[(gr, gc)])
+            ):
                 return False
             else:
-                rows[r].add(val)
-                cols[c].add(val)
-                grids[gridx].add(val)
+                rowcheck[r].add(val)
+                colcheck[c].add(val)
+                gridcheck[(gr, gc)].add(val)
 
     return True
 
@@ -215,8 +216,8 @@ def test_is_valid_sudoku(optimized=False):
 
 # 🧪 Run tests
 if __name__ == "__main__":
-    print(f"NORMAL METHOD")
+    print("NORMAL METHOD")
     test_is_valid_sudoku()
     print("#" * 10)
-    print(f"NORMAL METHOD")
+    print("OPTIMIZED METHOD")
     test_is_valid_sudoku(optimized=True)
