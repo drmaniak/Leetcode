@@ -29,53 +29,51 @@ def is_valid_sudoku(board: list[list[str]]) -> bool:
     Space Complexity: O(1) since the sets used are of fixed size
     """
 
-    # Row check
-    for i in range(9):
-        seen = set()
-        for j in range(9):
-            val = board[i][j]
+    for row in range(9):
+        checker = set()
+        for col in range(9):
+            val = board[row][col]
+
             if val == ".":
                 continue
 
-            if val in seen:
+            if val in checker:
                 return False
-            seen.add(val)
+            else:
+                checker.add(val)
 
-    # Column check
-    for i in range(9):
-        seen = set()
-        for j in range(9):
-            val = board[j][i]
+    for col in range(9):
+        checker = set()
+        for row in range(9):
+            val = board[row][col]
+
             if val == ".":
                 continue
 
-            if val in seen:
+            if val in checker:
                 return False
-            seen.add(val)
+            else:
+                checker.add(val)
 
-    # Grid
+    gridcheck = defaultdict(set)
+    for row in range(9):
+        for col in range(9):
+            gr = row // 3
+            gc = col // 3
 
-    for outer in range(9):
-        seen = set()
-        for i in range(3):
-            for j in range(3):
-                row = (outer // 3) * 3 + i
-                col = (outer % 3) * 3 + j
+            val = board[row][col]
 
-                val = board[row][col]
+            if val == ".":
+                continue
 
-                if val == ".":
-                    continue
-
-                if val in seen:
-                    return False
-                seen.add(val)
+            if val in gridcheck[(gr, gc)]:
+                return False
+            else:
+                gridcheck[(gr, gc)].add(val)
 
     return True
 
 
-# TODO: finish optimized version
-# Alternative optimized solution using a single pass
 def is_valid_sudoku_optimized(board: list[list[str]]) -> bool:
     """
     Determines if a 9x9 Sudoku board is valid in a single pass.
@@ -86,27 +84,26 @@ def is_valid_sudoku_optimized(board: list[list[str]]) -> bool:
 
     rowcheck = defaultdict(set)
     colcheck = defaultdict(set)
-    gridcheck = defaultdict(set)  # (r//3, c//3)
+    gridcheck = defaultdict(set)
 
-    for r in range(9):
-        for c in range(9):
-            val = board[r][c]
+    for row in range(9):
+        for col in range(9):
+            val = board[row][col]
 
-            gr = r // 3
-            gc = c // 3
+            gr, gc = row // 3, col // 3
 
             if val == ".":
                 continue
 
             if (
-                (val in rowcheck[r])
-                or (val in colcheck[c])
+                (val in rowcheck[row])
+                or (val in colcheck[col])
                 or (val in gridcheck[(gr, gc)])
             ):
                 return False
             else:
-                rowcheck[r].add(val)
-                colcheck[c].add(val)
+                rowcheck[row].add(val)
+                colcheck[col].add(val)
                 gridcheck[(gr, gc)].add(val)
 
     return True

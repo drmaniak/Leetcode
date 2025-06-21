@@ -29,8 +29,9 @@ def product_except_self(nums: list[int]) -> list[int]:
 
     lprod = 1
     rprod = 1
+
     for i in range(n):
-        l, r = i, n - i - 1
+        l, r = i, n - 1 - i
         nl, nr = nums[l], nums[r]
 
         out[l] *= lprod
