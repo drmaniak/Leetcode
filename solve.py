@@ -97,6 +97,25 @@ def execute_file(file_path):
     except Exception as e:
         return False, "", f"Execution error: {str(e)}"
 
+def extract_difficulty_from_file(file_path):
+    """Extract difficulty rating from the Python file's comments."""
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            # Read first 10 lines to find difficulty
+            for i, line in enumerate(f):
+                if i >= 10:  # Only check first 10 lines
+                    break
+                if '🤔 Difficulty:' in line:
+                    # Extract difficulty value after the colon
+                    difficulty = line.split('🤔 Difficulty:')[1].strip()
+                    # Remove any comment markers
+                    difficulty = difficulty.replace('#', '').strip()
+                    if difficulty.lower() in ['easy', 'medium', 'hard']:
+                        return difficulty.capitalize()
+        return ''  # Return empty if not found
+    except Exception:
+        return ''  # Return empty on any error
+
 def get_topics_from_category(file_path):
     """Extract topic category from file path."""
     topic_mappings = {
@@ -125,6 +144,9 @@ def create_new_problem_entry(file_path):
     base_name = Path(file_path).stem.replace('_', '-')
     leetcode_url = f"https://leetcode.com/problems/{base_name}/"
     
+    # Extract difficulty from file
+    difficulty = extract_difficulty_from_file(file_path)
+    
     return {
         'Problem Name': problem_name,
         'Problem Number': '',  # Can be filled manually later
@@ -133,7 +155,7 @@ def create_new_problem_entry(file_path):
         'First Solved Date': today,
         'Last Solved Date': today,
         'Times Solved': '1',
-        'Difficulty': '',  # Can be filled manually/interactively
+        'Difficulty': difficulty,  # Auto-extracted from file
         'Notes': ''
     }
 
@@ -212,11 +234,17 @@ def log_solve(file_path, solve_type="practice", notes="", interactive=False):
             if not notes:
                 notes = input("Add notes (optional): ").strip()
             
-            # Difficulty (if not set)
+            # Difficulty (if not set, try to extract from file first)
             if not problem['Difficulty']:
-                difficulty = input("Set difficulty (Easy/Medium/Hard) [skip]: ").strip()
-                if difficulty.lower() in ['easy', 'medium', 'hard']:
-                    problems[problem_idx]['Difficulty'] = difficulty.capitalize()
+                # Try to auto-extract difficulty from file
+                auto_difficulty = extract_difficulty_from_file(file_path)
+                if auto_difficulty:
+                    print(f"Auto-detected difficulty: {auto_difficulty}")
+                    problems[problem_idx]['Difficulty'] = auto_difficulty
+                else:
+                    difficulty = input("Set difficulty (Easy/Medium/Hard) [skip]: ").strip()
+                    if difficulty.lower() in ['easy', 'medium', 'hard']:
+                        problems[problem_idx]['Difficulty'] = difficulty.capitalize()
         except (EOFError, KeyboardInterrupt):
             print("\nInteractive mode cancelled, using defaults.")
             solve_type = "practice"
