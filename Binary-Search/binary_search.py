@@ -1,5 +1,7 @@
 # 🧩 Problem: Binary Search
 #
+# 🤔 Difficulty: Easy
+#
 #     You are given an array of distinct integers `nums`, sorted in ascending order,
 #     and an integer `target`.
 #

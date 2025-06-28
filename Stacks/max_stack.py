@@ -1,3 +1,19 @@
+# 🧩 Problem: Implement Max Stack
+#
+# 🤔 Difficulty: Medium
+#
+#   Design a stack class that supports the push, pop, top, and getMin operations.
+#
+#       MaxStack() initializes the stack object.
+#       void push(int val) pushes the element val onto the stack.
+#       void pop() removes the element on the top of the stack.
+#       int top() gets the top element of the stack.
+#       int getMax() retrieves the maximum element in the stack.
+#
+#   Each function should run in O(1) time.
+#
+
+
 class MaxStack:
     def __init__(self):
         self.stack = []

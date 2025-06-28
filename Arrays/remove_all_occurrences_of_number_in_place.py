@@ -1,3 +1,7 @@
+# 🧩 Problem: Remove All Occurrences of Number in Place
+#
+# 🤔 Difficulty: Easy
+#
 # Given an array nums and a value val, remove all occurrences of val in-place and return the new length of the array.
 # Do not allocate extra space for another array — you must do this by modifying the input array in-place with O(1) extra memory.
 # The order of elements can be changed, and you don’t need to consider beyond the returned length.
@@ -9,24 +13,20 @@ def remove_element(nums: list[int], val: int) -> int:
     The order of elements can be changed.
     """
 
-    # array length
     n = len(nums)
 
-    # Edge cases
-    if not nums:
-        return 0
+    # Init pointers
+    L = 0
+    R = 0
 
-    # 2 pointer appraoch
-    left = 0
-    for right in range(n):
-        curr = nums[right]
+    while R < n:
+        if nums[R] != val:
+            nums[L] = nums[R]
+            L += 1
 
-        # Write condition
-        if curr != val:
-            nums[left] = curr
-            left += 1
+        R += 1
 
-    return left
+    return L
 
 
 def test_remove_element():

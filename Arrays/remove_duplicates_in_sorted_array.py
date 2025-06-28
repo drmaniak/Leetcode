@@ -1,5 +1,7 @@
 # 🧩 Problem: Remove All Duplicates Except One (Sorted Array)
 #
+# 🤔 Difficulty: Easy
+#
 #     Given a sorted array nums, modify it in-place such that each element appears at most once — but you must preserve the relative order of the unique elements. Return the new length of the array after duplicates are removed.
 #     You must not allocate extra space — the operation must be done with O(1) extra memory.
 #
@@ -22,20 +24,21 @@ def remove_all_duplicates(nums: list[int]) -> int:
     """
 
     n = len(nums)
+
     if n <= 1:
         return n
 
-    # 2 pointer method where left is write & right is read
-    left = 1
-    for right in range(1, len(nums)):
-        curr = nums[right]
-        prev = nums[right - 1]
+    # Initialize Read & Write pointers
+    L = 0
+    R = 1
 
-        if curr != prev:
-            nums[left] = curr
-            left += 1
+    while R < n:
+        if nums[L] != nums[R]:
+            L += 1
+            nums[L] = nums[R]
+        R += 1
 
-    return left
+    return L + 1
 
 
 # ✅ Test cases

@@ -1,5 +1,7 @@
 # 🧩 Problem: Longest Consecutive Sequence
 #
+# 🤔 Difficulty: Medium
+#
 #     Given an array of integers nums, return the length of the longest consecutive sequence
 #     of elements that can be formed.
 #
@@ -28,17 +30,20 @@ def longest_consecutive(nums: list[int]) -> int:
         Length of the longest consecutive sequence
     """
 
-    if not nums:
-        return 0
+    n = len(nums)
+
+    if n <= 1:
+        return n
 
     numset = set(nums)
 
     longest = 0
 
-    for num in nums:
+    for i in range(n):
+        num = nums[i]
         if (num - 1) not in numset:
             length = 0
-            while (num + length) in numset:
+            while num + length in numset:
                 length += 1
 
             longest = max(longest, length)

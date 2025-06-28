@@ -1,5 +1,7 @@
 # 🧩 Problem: Quick Sort on Key-Value Pairs
 #
+# 🤔 Difficulty: Medium
+#
 #     Implement Quick Sort.
 #
 #     Quick Sort is a divide-and-conquer sorting algorithm that works by partitioning

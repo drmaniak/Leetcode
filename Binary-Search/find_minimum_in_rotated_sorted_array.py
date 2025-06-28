@@ -1,5 +1,7 @@
 # 🧩 Problem: Find Minimum in Rotated Sorted Array
 #
+# 🤔 Difficulty: Medium
+#
 #     You are given an array of length `n` that was originally sorted in ascending order.
 #     It has been rotated between 1 and `n` times.
 #
@@ -45,20 +47,42 @@ def find_min(nums: List[int]) -> int:
     """
     # Your solution here
 
-    left, right = 0, len(nums) - 1
-    res = nums[left]
+    # left, right = 0, len(nums) - 1
+    # res = nums[left]
+    #
+    # while left <= right:
+    #     if nums[left] <= nums[right]:
+    #         res = min(res, nums[left])
+    #
+    #     m = (left + right) // 2
+    #
+    #     res = min(res, nums[m])
+    #     if nums[m] >= nums[left]:
+    #         left = m + 1
+    #     else:
+    #         right = m - 1
+    #
+    # return res
 
-    while left <= right:
-        if nums[left] <= nums[right]:
-            res = min(res, nums[left])
+    low = 0
+    high = len(nums) - 1
 
-        m = (left + right) // 2
+    res = nums[low]
 
-        res = min(res, nums[m])
-        if nums[m] >= nums[left]:
-            left = m + 1
-        else:
-            right = m - 1
+    while low <= high:
+        # Base case when low-high is sorted
+        if nums[low] <= nums[high]:
+            res = min(nums[low], res)
+            break
+
+        # Logic to move the pointers
+        mid = (low + high) // 2
+        res = min(res, nums[mid])
+
+        if nums[mid] >= nums[low]:  # Left portion of list is sorted, can ignore
+            low = mid + 1
+        else:  # Right portion of the list is sorted, can ignore
+            right = mid - 1
 
     return res
 

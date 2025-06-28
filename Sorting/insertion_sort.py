@@ -1,5 +1,7 @@
 # 🧩 Problem: Insertion Sort on Key-Value Pairs
 #
+# 🤔 Difficulty: Medium
+#
 #     Implement Insertion Sort and return intermediate states.
 #
 #     Insertion Sort is a simple sorting algorithm that builds the sorted list one element

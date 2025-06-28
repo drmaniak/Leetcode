@@ -1,5 +1,7 @@
 # 🧩 Problem: Valid Parentheses
 #
+# 🤔 Difficulty: Easy
+#
 #     You are given a string s consisting of the following characters: '(', ')', '{', '}', '[' and ']'.
 #
 #     The input string s is valid if and only if:

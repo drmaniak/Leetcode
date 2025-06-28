@@ -1,5 +1,7 @@
 # 🧩 Problem: Swap Nodes in Pairs
 #
+# 🤔 Difficulty: Medium
+#
 #     Given a linked list, swap every two adjacent nodes and return its head.
 #     You must solve the problem without modifying the values in the list's nodes
 #     (i.e., only nodes themselves may be changed.)
@@ -24,7 +26,7 @@
 #     - The number of nodes in the list is in the range [0, 100].
 #     - 0 <= Node.val <= 100
 
-from typing import List, Optional
+from typing import Optional
 
 
 class ListNode:
@@ -32,7 +34,7 @@ class ListNode:
         self.val = val
         self.next = next
 
-    def __eq__(self, other: Optional["ListNode"]) -> bool:
+    def __eq__(self, other: Optional["ListNode"]) -> bool:  # type: ignore
         """Helper to compare two linked lists."""
         curr1, curr2 = self, other
         while curr1 and curr2:

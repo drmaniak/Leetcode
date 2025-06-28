@@ -1,5 +1,7 @@
 # 🧩 Problem: Climbing Stairs
 #
+# 🤔 Difficulty: Easy
+#
 #     You are climbing a staircase. It takes n steps to reach the top.
 #     Each time you can either climb 1 or 2 steps.
 #     In how many distinct ways can you climb to the top?
@@ -53,6 +55,21 @@ def climb_stairs_recursive(n: int) -> int:
         return ways
 
 
+def climb_stairs_iterative(n: int) -> int:
+    """
+    Return the number of distinct ways to climb to the top using iteration (DP).
+
+    Args:
+        n: Total number of steps to reach the top
+
+    Returns:
+        Number of distinct ways to reach the top
+    """
+    # Your solution here
+    pass
+    return 0
+
+
 # ✅ Test suite
 def test_climb_stairs():
     test_cases = [
@@ -78,6 +95,7 @@ def test_climb_stairs():
         # assert result_iter == expected, (
         #     f"[Iterative] Test case {i} failed: n={input_n}, expected {expected}, got {result_iter}"
         # )
+
     print("✅ All test cases passed for both recursive and iterative versions!")
 
 

@@ -1,5 +1,7 @@
 # 🧩 Problem: Merge Sort on Key-Value Pairs
 #
+# 🤔 Difficulty: Medium
+#
 #     Implement Merge Sort.
 #
 #     Merge Sort is a divide-and-conquer algorithm for sorting an array or list of elements.
