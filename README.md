@@ -48,6 +48,8 @@ Each problem file should follow this structure:
 #
 # 🤔 Difficulty: Easy/Medium/Hard
 #
+# 🔗 Link: https://leetcode.com/problems/problem-name
+#
 #   <Description>...
 #
 # ✅ Constraints: Problem constraints...

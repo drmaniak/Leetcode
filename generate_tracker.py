@@ -75,6 +75,26 @@ def extract_difficulty_from_file(file_path):
     except Exception:
         return ""  # Return empty on any error
 
+def extract_leetcode_url_from_file(file_path):
+    """Extract LeetCode URL from the Python file's comments."""
+    try:
+        with open(file_path, "r", encoding="utf-8") as f:
+            # Read first 10 lines to find LeetCode link
+            for i, line in enumerate(f):
+                if i >= 10:  # Only check first 10 lines
+                    break
+                if "🔗 Link:" in line:
+                    # Extract URL after the colon
+                    url = line.split("🔗 Link:")[1].strip()
+                    # Remove any comment markers
+                    url = url.replace("#", "").strip()
+                    # Basic URL validation
+                    if url.startswith("https://leetcode.com/"):
+                        return url
+        return ""  # Return empty if not found
+    except Exception:
+        return ""  # Return empty on any error
+
 
 def get_topics_from_category(category):
     """Map directory category to topics."""
@@ -127,11 +147,17 @@ def main():
 
         problem_name = filename_to_problem_name(filename)
         problem_number = get_problem_number(filename)
-        leetcode_url = (
-            get_leetcode_url(problem_number, filename)
-            if problem_number
-            else f"https://leetcode.com/problems/{base_name.replace('_', '-')}/"
-        )
+        
+        # Extract LeetCode URL from file, fallback to existing logic
+        leetcode_url = extract_leetcode_url_from_file(file_info["filepath"])
+        if not leetcode_url:
+            # Fallback to existing URL generation logic
+            leetcode_url = (
+                get_leetcode_url(problem_number, filename)
+                if problem_number
+                else f"https://leetcode.com/problems/{base_name.replace('_', '-')}/"
+            )
+        
         topics = get_topics_from_category(file_info["category"])
         first_solved = datetime.fromtimestamp(file_info["created"]).strftime("%Y-%m-%d")
         last_solved = datetime.fromtimestamp(file_info["modified"]).strftime("%Y-%m-%d")

@@ -116,6 +116,26 @@ def extract_difficulty_from_file(file_path):
     except Exception:
         return ''  # Return empty on any error
 
+def extract_leetcode_url_from_file(file_path):
+    """Extract LeetCode URL from the Python file's comments."""
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            # Read first 10 lines to find LeetCode link
+            for i, line in enumerate(f):
+                if i >= 10:  # Only check first 10 lines
+                    break
+                if '🔗 Link:' in line:
+                    # Extract URL after the colon
+                    url = line.split('🔗 Link:')[1].strip()
+                    # Remove any comment markers
+                    url = url.replace('#', '').strip()
+                    # Basic URL validation
+                    if url.startswith('https://leetcode.com/'):
+                        return url
+        return ''  # Return empty if not found
+    except Exception:
+        return ''  # Return empty on any error
+
 def get_topics_from_category(file_path):
     """Extract topic category from file path."""
     topic_mappings = {
@@ -140,9 +160,12 @@ def create_new_problem_entry(file_path):
     problem_name = extract_problem_name_from_path(file_path)
     today = datetime.now().strftime('%Y-%m-%d')
     
-    # Generate LeetCode URL (basic heuristic)
-    base_name = Path(file_path).stem.replace('_', '-')
-    leetcode_url = f"https://leetcode.com/problems/{base_name}/"
+    # Extract LeetCode URL from file, fallback to heuristic
+    leetcode_url = extract_leetcode_url_from_file(file_path)
+    if not leetcode_url:
+        # Fallback to heuristic generation
+        base_name = Path(file_path).stem.replace('_', '-')
+        leetcode_url = f"https://leetcode.com/problems/{base_name}/"
     
     # Extract difficulty from file
     difficulty = extract_difficulty_from_file(file_path)
