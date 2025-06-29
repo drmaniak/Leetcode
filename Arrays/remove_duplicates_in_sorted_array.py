@@ -2,6 +2,8 @@
 #
 # 🤔 Difficulty: Easy
 #
+# 🔗 Link:
+#
 #     Given a sorted array nums, modify it in-place such that each element appears at most once — but you must preserve the relative order of the unique elements. Return the new length of the array after duplicates are removed.
 #     You must not allocate extra space — the operation must be done with O(1) extra memory.
 #

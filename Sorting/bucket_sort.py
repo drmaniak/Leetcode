@@ -2,6 +2,8 @@
 #
 # 🤔 Difficulty: Medium
 #
+# 🔗 Link:
+#
 #     Implement Bucket Sort.
 #
 #     Bucket Sort is a sorting algorithm that distributes elements into several buckets.

@@ -2,6 +2,8 @@
 #
 # 🤔 Difficulty: Medium
 #
+# 🔗 Link: https://leetcode.com/problems/product-of-array-except-self
+#
 #     Given an integer array nums, return an array output where output[i] is the product
 #     of all the elements of nums except nums[i].
 #     Each product is guaranteed to fit in a 32-bit integer.

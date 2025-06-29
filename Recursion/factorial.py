@@ -1,6 +1,8 @@
 # 🧩 Problem: Calculate Factorial
 #
 # 🤔 Difficulty: Easy
+#
+# 🔗 Link:
 
 
 def factorial(n: int) -> int:

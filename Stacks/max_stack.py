@@ -2,6 +2,8 @@
 #
 # 🤔 Difficulty: Medium
 #
+# 🔗 Link:
+#
 #   Design a stack class that supports the push, pop, top, and getMin operations.
 #
 #       MaxStack() initializes the stack object.

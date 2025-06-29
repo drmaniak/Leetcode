@@ -2,6 +2,8 @@
 #
 # 🤔 Difficulty: Easy
 #
+# 🔗 Link: https://leetcode.com/problems/valid-parentheses
+#
 #     You are given a string s consisting of the following characters: '(', ')', '{', '}', '[' and ']'.
 #
 #     The input string s is valid if and only if:

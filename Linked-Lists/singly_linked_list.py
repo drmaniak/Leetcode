@@ -1,3 +1,10 @@
+# 🧩 Problem: Design a Singly Linked List
+#
+# 🤔 Difficulty: Medium
+#
+# 🔗 Link:
+
+
 class Node:
     def __init__(self, val: int):
         self.val = val

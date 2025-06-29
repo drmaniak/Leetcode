@@ -2,6 +2,8 @@
 #
 # 🤔 Difficulty: Medium
 #
+# 🔗 Link: https://leetcode.com/problems/two-sum-ii-input-array-is-sorted
+#
 #     Given an array of integers numbers that is sorted in non-decreasing order.
 #
 #     Return the indices (1-indexed) of two numbers, [index1, index2], such that they add up to a given

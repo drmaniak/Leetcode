@@ -2,6 +2,8 @@
 #
 # 🤔 Difficulty: Medium
 #
+# 🔗 Link: https://leetcode.com/problems/longest-consecutive-sequence
+#
 #     Given an array of integers nums, return the length of the longest consecutive sequence
 #     of elements that can be formed.
 #

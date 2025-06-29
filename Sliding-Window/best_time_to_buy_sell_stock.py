@@ -2,6 +2,8 @@
 #
 # 🤔 Difficulty: Easy
 #
+# 🔗 Link: https://leetcode.com/problems/best-time-to-buy-and-sell-stock
+#
 #     You are given an integer array `prices` where `prices[i]` is the price of NeetCoin on the i-th day.
 #
 #     You may choose a single day to buy one NeetCoin and choose a different day in the future to sell it.

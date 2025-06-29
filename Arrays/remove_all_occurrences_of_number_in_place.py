@@ -2,6 +2,8 @@
 #
 # 🤔 Difficulty: Easy
 #
+# 🔗 Link:
+#
 # Given an array nums and a value val, remove all occurrences of val in-place and return the new length of the array.
 # Do not allocate extra space for another array — you must do this by modifying the input array in-place with O(1) extra memory.
 # The order of elements can be changed, and you don’t need to consider beyond the returned length.

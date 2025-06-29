@@ -2,6 +2,8 @@
 #
 # 🤔 Difficulty: Medium
 #
+# 🔗 Link: https://leetcode.com/problems/koko-eating-bananas
+#
 #     You are given an integer array `piles` where `piles[i]` is the number of bananas in the ith pile.
 #     You are also given an integer `h`, the total number of hours you have to eat all the bananas.
 #
