@@ -59,27 +59,29 @@ def trap(height: list[int]) -> int:
     """
     # Your solution here
 
-    if len(height) <= 2:
-        return 0
-
     n = len(height)
 
-    lmax, rmax = 0, 0
+    L = 0
+    R = n - 1
+
+    lmax = 0
+    rmax = 0
+
     total_water = 0
 
-    L, R = 0, n - 1
-
     while L < R:
-        hL, hR = height[L], height[R]
+        hL = height[L]
+        hR = height[R]
 
         if hL < hR:
-            total_water += max(0, lmax - hL)
+            current_water = max(0, lmax - hL)
             lmax = max(lmax, hL)
             L += 1
         else:
-            total_water += max(0, rmax - hR)
+            current_water = max(0, rmax - hR)
             rmax = max(rmax, hR)
             R -= 1
+        total_water += current_water
 
     return total_water
 
@@ -88,6 +90,9 @@ def trap(height: list[int]) -> int:
 def test_trap():
     # Example 1: [0,2,0,3,1,0,1,3,2,1] -> 9
     assert trap([0, 2, 0, 3, 1, 0, 1, 3, 2, 1]) == 9, "Example 1 failed"
+
+    # Example 2: [0,1,0,1,3,1,0,2,3,1] -> 9
+    assert trap([0, 1, 0, 1, 3, 1, 0, 2, 3, 1]) == 7, "Example 2 failed"
 
     # Simple case: [0,1,0,2,1,0,1,3,2,1,2,1] -> 6
     assert trap([0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]) == 6, "Simple case failed"

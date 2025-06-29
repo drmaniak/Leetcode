@@ -27,22 +27,22 @@ def product_except_self(nums: list[int]) -> list[int]:
 
     n = len(nums)
 
-    out = [1] * n
-
     lprod = 1
     rprod = 1
 
+    output = [1] * n
+
     for i in range(n):
-        l, r = i, n - 1 - i
-        nl, nr = nums[l], nums[r]
+        L = i
+        R = n - i - 1
 
-        out[l] *= lprod
-        out[r] *= rprod
+        output[L] *= lprod
+        output[R] *= rprod
 
-        lprod *= nl
-        rprod *= nr
+        lprod *= nums[L]
+        rprod *= nums[R]
 
-    return out
+    return output
 
 
 # ✅ Thorough test suite

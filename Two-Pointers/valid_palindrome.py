@@ -51,17 +51,24 @@ def is_palindrome_two_pointers(s: str) -> bool:
 
     n = len(s)
 
-    L, R = 0, n - 1
+    if n == 1:
+        return True
+
+    L = 0
+    R = n - 1
 
     while L < R:
-        # Check if the current char is valid
-        while (L < R) and not s[L].isalnum():
+        # Iterate through L and R until we arrive at valid characters
+        while L < R and not s[L].isalnum():
             L += 1
-        while (L < R) and not s[R].isalnum():
+
+        while L < R and not s[R].isalnum():
             R -= 1
 
-        # Compare
-        if s[L].lower() != s[R].lower():
+        charL = s[L].lower()
+        charR = s[R].lower()
+
+        if charL != charR:
             return False
         else:
             L += 1

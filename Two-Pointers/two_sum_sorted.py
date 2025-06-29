@@ -33,24 +33,23 @@ def two_sum(numbers: list[int], target: int) -> list[int]:
     Returns:
         A list containing the 1-indexed positions of the two numbers
     """
-    left, right = 0, len(numbers) - 1
 
-    while left < right:
-        current_sum = numbers[left] + numbers[right]
+    n = len(numbers)
 
-        if current_sum == target:
-            # Return 1-indexed positions
-            return [left + 1, right + 1]
-        elif current_sum < target:
-            # If sum is too small, move left pointer to increase the sum
-            left += 1
+    L = 0
+    R = n - 1
+
+    while L <= R:
+        twosum = numbers[L] + numbers[R]
+
+        if twosum < target:
+            L += 1
+        elif twosum > target:
+            R -= 1
         else:
-            # If sum is too large, move right pointer to decrease the sum
-            right -= 1
+            return [L + 1, R + 1]
 
-    # The problem states there will always be exactly one solution
-    # This return statement should never be reached
-    return []
+    return [-1, -1]
 
 
 # ✅ Thorough test suite

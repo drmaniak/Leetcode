@@ -29,29 +29,23 @@ def most_water(heights: list[int]) -> int:
 
     n = len(heights)
 
-    max_area = 0
-
     L = 0
     R = n - 1
+
+    most_water = 0
 
     while L < R:
         hL = heights[L]
         hR = heights[R]
-
-        height = min(hL, hR)
-
-        width = R - L
-
-        current_area = width * height
-
-        max_area = max(max_area, current_area)
-
+        current_water = min(hL, hR) * (R - L)
         if hL < hR:
             L += 1
         else:
             R -= 1
 
-    return max_area
+        most_water = max(most_water, current_water)
+
+    return most_water
 
 
 # ✅ Thorough test suite
