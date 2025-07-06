@@ -52,28 +52,30 @@ def insertion_sort_states(pairs: List[Tuple[int, str]]) -> List[List[Tuple[int, 
     """
     # Your solution here
 
-    out = []
-
     n = len(pairs)
 
-    if not pairs:
-        return out
+    out = []
 
-    if len(pairs) == 1:
-        return [pairs.copy()]
+    if n <= 0:
+        return out
 
     out.append(pairs.copy())
 
-    for i in range(1, n):
-        N = i
-        P = i - 1
-        while P >= 0 and (pairs[N][0] < pairs[P][0]):
-            tmp = pairs[P]
-            pairs[P] = pairs[N]
-            pairs[N] = tmp
+    if n == 1:
+        return out
 
-            N -= 1
-            P -= 1
+    for i in range(1, n):
+        L = i - 1
+        R = i
+
+        while L >= 0 and pairs[R][0] < pairs[L][0]:
+            tmp = pairs[R]
+            pairs[R] = pairs[L]
+            pairs[L] = tmp
+
+            # increment the pointers
+            L -= 1
+            R -= 1
 
         out.append(pairs.copy())
 

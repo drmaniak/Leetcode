@@ -44,53 +44,47 @@ def merge_sort(pairs: List[Tuple[int, str]]) -> List[Tuple[int, str]]:
     """
     # Your solution here
 
-    # Edge case
-    if not pairs:
-        return []
-
     n = len(pairs)
 
-    # Base case for recursion
-    if n == 1:
+    # Recursive base case
+    if n <= 1:
         return pairs
 
-    # Find midpoint to split the list
+    # What I need to do is to find the midpoint,
+    # split the list into left and right parts, and sort the left
+
     mid = n // 2
 
-    # Recursive call to split lists further
     left_part = merge_sort(pairs[:mid])
     right_part = merge_sort(pairs[mid:])
 
-    merged_list = merge_lists(left_part, right_part)
+    merged_part = merge_left_right(left_part, right_part)
 
-    return merged_list
+    return merged_part
 
 
-def merge_lists(
-    left: List[Tuple[int, str]], right: List[Tuple[int, str]]
-) -> List[Tuple[int, str]]:
-    nl, nr = len(left), len(right)
+def merge_left_right(
+    left_part: list[tuple[int, str]], right_part: list[tuple[int, str]]
+) -> list[tuple[int, str]]:
+    nl, nr = len(left_part), len(right_part)
+
     out = []
 
-    # Pointers for the left/right lists
-    L = 0
-    R = 0
+    L, R = 0, 0
 
     while (L < nl) and (R < nr):
-        numL = left[L][0]
-        numR = right[R][0]
+        pair_l = left_part[L]
+        pair_r = right_part[R]
 
-        if numL <= numR:
-            out.append(left[L])
+        if pair_l[0] <= pair_r[0]:
+            out.append(pair_l)
             L += 1
         else:
-            out.append(right[R])
+            out.append(pair_r)
             R += 1
 
-    if L == nl:
-        out.extend(right[R:])
-    else:
-        out.extend(left[L:])
+    remainder = left_part[L:] if L != nl else right_part[R:]
+    out.extend(remainder)
 
     return out
 

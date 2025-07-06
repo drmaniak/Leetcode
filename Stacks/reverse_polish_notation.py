@@ -36,34 +36,36 @@ def evaluate_rpn(tokens: list[str]) -> int:
     """
     # Your solution here
 
+    ops = set(["+", "*", "-", "/"])
+
     rpn_stack = []
 
-    valid_ops = set(["+", "-", "*", "/"])
-
-    for char in tokens:
-        if char not in valid_ops:
-            rpn_stack.append(int(char))
+    for token in tokens:
+        if token not in ops:
+            rpn_stack.append(int(token))
         else:
             n2 = rpn_stack.pop()
             n1 = rpn_stack.pop()
-            out = calculate(char, n1, n2)
-
-            rpn_stack.append(out)
+            op = token
+            res = calculate(n1, n2, op)
+            rpn_stack.append(res)
 
     return rpn_stack[-1]
 
 
-def calculate(op: str, n1: int, n2: int) -> int:
-    res = 0
-
+def calculate(num1: int, num2: int, op: str) -> int | None:
+    res = None
     if op == "+":
-        res = n1 + n2
+        res = num1 + num2
     elif op == "-":
-        res = n1 - n2
+        res = num1 - num2
     elif op == "*":
-        res = n1 * n2
+        res = num1 * num2
     elif op == "/":
-        res = n1 / n2
+        res = num1 / num2
+    else:
+        print(f"Inalid op {op}, please supply one of [+, -, *, /].")
+        return res
 
     return int(res)
 
