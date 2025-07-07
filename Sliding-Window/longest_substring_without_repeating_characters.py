@@ -45,6 +45,7 @@ def length_of_longest_substring(s: str) -> int:
         while s[R] in charset:
             charset.remove(s[L])
             L += 1
+
         charset.add(s[R])
         longest = max(longest, R - L + 1)
 

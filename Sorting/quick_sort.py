@@ -48,44 +48,44 @@ def quick_sort(pairs: List[Tuple[int, str]]) -> List[Tuple[int, str]]:
     Returns:
         A new list sorted by key
     """
-    # Your solution here
+
     n = len(pairs)
-    start = 0
-    end = n - 1
-    qs_helper(array=pairs, start=start, end=end)
+    start, end = 0, n - 1
+
+    qs_helper(pairs, start, end)  # qs_helper sorts it in place
 
     return pairs
 
 
 def qs_helper(
-    array: List[Tuple[int, str]], start: int, end: int
+    array: list[tuple[int, str]], start: int, end: int
 ) -> list[tuple[int, str]] | None:
-    # base case
-
-    if end - start + 1 <= 1:
+    # Base case for recursion
+    if (
+        end - start + 1 <= 1
+    ):  # don't use len(pairs) since we pass the whole list in, with different start, end positions
         return array
 
-    # Get the pivot
+    # Store the pivot (end pointer)
     pivot = array[end]
 
-    # Init a pointer to keep track of the write pos (it starts at start)
+    # init a write pointer at the start of the list
     W = start
 
-    # Loop over the array from start up to end (exclusive since we won't touch pivot)
-    for i in range(start, end):
+    for i in range(start, end):  # Don't include end/pivot
         if array[i][0] < pivot[0]:
-            tmp = array[i]
-            array[i] = array[W]
-            array[W] = tmp
-            W += 1  # Advance the write pointer
+            tmp = array[W]
+            array[W] = array[i]
+            array[i] = tmp
+            W += 1
 
-    # Swap the elem at W with the pivot
+    # Once we're done sorting, we swap pivot with W
     array[end] = array[W]
     array[W] = pivot
 
-    # Recursively sort the left and right splits (excluding the pivot)
-    qs_helper(array=array, start=start, end=W - 1)
-    qs_helper(array=array, start=W + 1, end=end)
+    # Recursively call the qs_helper on the left and right sides of the pivot, EXCLUDING PIVOT
+    qs_helper(array, start, W - 1)
+    qs_helper(array, W + 1, end)
 
 
 # ✅ Test suite

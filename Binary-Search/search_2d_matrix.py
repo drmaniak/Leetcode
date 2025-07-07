@@ -42,42 +42,38 @@ def search_matrix(matrix: List[List[int]], target: int) -> bool:
         True if target exists in matrix, False otherwise
     """
 
-    # Get count of rows and cols
-    rows, cols = len(matrix), len(matrix[0])
+    # Plan: binary search to find correct row -> binary search to find correct column
 
-    # We need to first perform binary search top-to-bottom to find correct row
+    # ROW SEARCH
     TOP = 0
-    BOTTOM = rows - 1
+    BOTTOM = len(matrix) - 1
 
-    vert_mid = 0
+    row_mid = 0
 
     while TOP <= BOTTOM:
-        vert_mid = (TOP + BOTTOM) // 2
+        row_mid = (TOP + BOTTOM) // 2
+        row_L = matrix[row_mid][0]
+        row_R = matrix[row_mid][-1]
 
-        vert_target_lower = matrix[vert_mid][0]
-        vert_target_upper = matrix[vert_mid][-1]
-
-        if target < vert_target_lower:
-            BOTTOM = vert_mid - 1
-        elif target > vert_target_upper:
-            TOP = vert_mid + 1
+        if target < row_L:
+            BOTTOM = row_mid - 1
+        elif target > row_R:
+            TOP = row_mid + 1
         else:
             break
 
-    if not (TOP <= BOTTOM):
-        return False
-
     LEFT = 0
-    RIGHT = cols - 1
+    RIGHT = len(matrix[0]) - 1
+    col_mid = 0
+
     while LEFT <= RIGHT:
-        hori_mid = (LEFT + RIGHT) // 2
+        col_mid = (LEFT + RIGHT) // 2
+        col_target = matrix[row_mid][col_mid]
 
-        hori_target = matrix[vert_mid][hori_mid]
-
-        if target < hori_target:
-            RIGHT = hori_mid - 1
-        elif target > hori_target:
-            LEFT = hori_mid + 1
+        if target < col_target:
+            RIGHT = col_mid - 1
+        elif target > col_target:
+            LEFT = col_mid + 1
         else:
             return True
 

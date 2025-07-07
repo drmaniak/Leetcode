@@ -8,85 +8,140 @@
 class Node:
     def __init__(self, val: int):
         self.val = val
-        self.next = None
+        self.next: Node | None = None
 
 
 class MyLinkedList:
     def __init__(self):
-        self.head = Node(
-            -9999
-        )  # Initialize self.head to a dummy node to help with removal
-        self.tail = self.head
-        self.size = 0
+        self.dummy = Node(val=-69420)
+        self.tail: Node | None = None
+        self.len = 0
 
     def get(self, index: int) -> int:
-        curr = self.head.next  # Start from first non-dummy node
+        # Initialize the pointer at the head node
+        curr = self.dummy.next
+
+        if (not curr) or (index < 0) or (index >= self.len):
+            return -1
+
+        # Initialize a counter variable
         count = 0
 
-        # Loop till we reach an empty node
-        while curr:
-            # If node is at index, then return its value
-            if count == index:
-                return curr.val
-
-            # Make next node as curr & increment count
+        # When the loop breaks, we are at our desired node
+        while count < index and curr.next:
             curr = curr.next
             count += 1
 
-        # Return -1 if index out of bounds
-        return -1
+        val = curr.val
+        return val
 
     def addAtHead(self, val: int) -> None:
-        new_node = Node(val)  # Create new node
-        new_node.next = self.head.next  # Make its next node the old head node
-        self.head.next = new_node  # type: ignore
-        if not new_node.next:
-            self.tail = new_node
+        # Store the current var that dummy.next points to
+        nxt = self.dummy.next
+
+        # Create new head_node
+        new_head = Node(val)
+
+        # Assign dummy.next to new_head
+        self.dummy.next = new_head
+
+        # Assign new_head.next to stored temp nxt
+        new_head.next = nxt
+
+        # If head is the only node
+        if not nxt:
+            self.tail = new_head
+
+        # Increment len
+        self.len += 1
 
     def addAtTail(self, val: int) -> None:
-        new_node = Node(val)
-        self.tail.next = new_node  # type: ignore
-        self.tail = new_node
+        curr = self.dummy
+
+        # After loop, we arrive at last node
+        while curr.next:
+            curr = curr.next
+
+        # Assign last node's next pointer to new node
+        new_tail = Node(val)
+        curr.next = new_tail
+
+        # Update tail pointer
+        self.tail = new_tail
+
+        # Increment len
+        self.len += 1
 
     def addAtIndex(self, index: int, val: int) -> None:
-        curr = self.head  # Start at dummy node
+        # Edge cases for adding at head or tail
+
+        if index > self.len:
+            return
+
+        if index == 0:
+            self.addAtHead(val)
+            return
+
+        if index == self.len:
+            self.addAtTail(val)
+            return
+
+        # Initialize at dummy, since we need to re-assign pointers after adding
+        curr = self.dummy
+
         count = 0
-        new_node = Node(val)
-        while count < index and curr:
+
+        # After breaking, we arrive at the node preceeding our target index
+        while count < index and curr.next:
             curr = curr.next
             count += 1
 
-        # After the loop, curr.next is our targeted index
+        nxt = curr.next
+        new_node = Node(val)
+        curr.next = new_node
+        new_node.next = nxt
 
-        if curr:
-            new_node.next = curr.next
-            curr.next = new_node  # type: ignore
-
-            if not new_node.next:
-                self.tail = new_node
+        self.len += 1
 
     def deleteAtIndex(self, index: int) -> None:
-        curr = self.head  # Start at dummy node
+        prev, curr = self.dummy, self.dummy.next
+
+        if not curr:
+            return
+
+        if index > self.len:
+            return
+
         count = 0
 
-        while count < index and curr:
-            curr = curr.next
+        # We need to also store a prev pointer
+        while count < index and curr.next:
+            prev = curr
+            curr = curr.next  # when breaking, we are at our target index
             count += 1
 
-        # After the loop, curr.next is our targeted index
-        if curr and curr.next:
-            if curr.next == self.tail:
-                self.tail = curr
-            curr.next = curr.next.next
+        # we need to snip out the curr and connect prev to nxt
+        nxt = curr.next
+        prev.next = nxt
+
+        # Update tail if at last node
+        if not nxt:
+            self.tail = prev
+
+        # Update length
+        self.len -= 1
+        self.len = max(0, self.len)
 
     def getValues(self) -> list[int]:
-        curr = self.head.next  # First non-dummy node
-        values = []
-        while curr:
-            values.append(curr.val)
-            curr = curr.next
+        curr = self.dummy
 
-        return values
+        vals = []
+
+        while curr.next:
+            curr = curr.next
+            vals.append(curr.val)
+
+        return vals
 
 
 def test_linked_list_operations():

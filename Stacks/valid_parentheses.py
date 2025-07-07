@@ -31,24 +31,25 @@ def is_valid(s: str) -> bool:
     # Your solution here
 
     closepairs = {
-        "]": "[",
-        ")": "(",
         "}": "{",
+        ")": "(",
+        "]": "[",
     }
 
     stack = []
 
     for char in s:
-        if char in closepairs:
+        if char not in closepairs:
+            stack.append(char)
+        else:
             if not stack:
                 return False
 
-            if closepairs[char] != stack[-1]:
+            open = closepairs[char]
+            if open != stack[-1]:
                 return False
-
-            stack.pop()
-        else:
-            stack.append(char)
+            else:
+                stack.pop()
 
     return not stack
 
